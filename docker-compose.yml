@@ -21,15 +21,15 @@ services:
       - '--web.enable-lifecycle'
     restart: unless-stopped
 
-  alertmanager:
-    image: prom/alertmanager:v0.28.1
-    volumes:
-      - ./alertmanager/alertmanager.yml:/etc/alertmanager/alertmanager.yml
-    ports:
-      - "9093:9093"
-    command:
-      - '--config.file=/etc/alertmanager/alertmanager.yml'
-    restart: unless-stopped
+  # alertmanager:
+  #   image: prom/alertmanager:v0.28.1
+  #   volumes:
+  #     - ./alertmanager/alertmanager.yml:/etc/alertmanager/alertmanager.yml
+  #   ports:
+  #     - "9093:9093"
+  #   command:
+  #     - '--config.file=/etc/alertmanager/alertmanager.yml'
+  #   restart: unless-stopped
 
   node_exporter:
     image: prom/node-exporter:v1.9.1

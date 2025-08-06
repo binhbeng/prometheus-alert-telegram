@@ -1,32 +1,32 @@
-groups:
-  - name: node_alerts
-    rules:
-      - alert: High_Disk_Usage
-        expr: (1 - (node_filesystem_avail_bytes{fstype=~"ext4|xfs"} / node_filesystem_size_bytes{fstype=~"ext4|xfs"})) * 100 > 85
-        for: 5m
-        labels:
-          severity: warning
-        annotations:
-          summary: "Disk usage high: {{ $labels.instance }} - {{ $labels.mountpoint }}"
-          description: 'Disk usage is at {{ $value | printf "%.2f" }}% on {{ $labels.mountpoint }} at {{ $labels.instance }}'
+# groups:
+#   - name: node_alerts
+#     rules:
+#       - alert: High_Disk_Usage
+#         expr: (1 - (node_filesystem_avail_bytes{fstype=~"ext4|xfs"} / node_filesystem_size_bytes{fstype=~"ext4|xfs"})) * 100 > 85
+#         for: 5m
+#         labels:
+#           severity: warning
+#         annotations:
+#           summary: "Disk usage high: {{ $labels.instance }} - {{ $labels.mountpoint }}"
+#           description: 'Disk usage is at {{ $value | printf "%.2f" }}% on {{ $labels.mountpoint }} at {{ $labels.instance }}'
 
-      - alert: High_CPU_Usage
-        expr: 100 - (avg by (instance) (rate(node_cpu_seconds_total{mode="idle"}[2m])) * 100) > 85
-        for: 5m
-        labels:
-          severity: warning
-        annotations:
-          summary: "CPU usage is over 2%"
-          description: "Instance {{ $labels.instance }} has high CPU usage: {{ $value | printf \"%.2f\" }}%"
+#       - alert: High_CPU_Usage
+#         expr: 100 - (avg by (instance) (rate(node_cpu_seconds_total{mode="idle"}[2m])) * 100) > 85
+#         for: 5m
+#         labels:
+#           severity: warning
+#         annotations:
+#           summary: "CPU usage is over 2%"
+#           description: "Instance {{ $labels.instance }} has high CPU usage: {{ $value | printf \"%.2f\" }}%"
 
-      - alert: High_Memory_Usage
-        expr: 100 * (1 - (node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes)) > 85
-        for: 5m
-        labels:
-          severity: warning
-        annotations:
-          summary: "Memory usage is over 2%"
-          description: "Instance {{ $labels.instance }} has high memory usage: {{ $value | printf \"%.2f\" }}%"
+#       - alert: High_Memory_Usage
+#         expr: 100 * (1 - (node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes)) > 85
+#         for: 5m
+#         labels:
+#           severity: warning
+#         annotations:
+#           summary: "Memory usage is over 2%"
+#           description: "Instance {{ $labels.instance }} has high memory usage: {{ $value | printf \"%.2f\" }}%"
 
       # - alert: NodeDown
       #   expr: up == 0

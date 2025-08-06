@@ -1,22 +1,22 @@
-global:
-  resolve_timeout: 1m
+# global:
+#   resolve_timeout: 1m
 
-route:
-  group_by: ['alertname', 'instance']
-  receiver: 'telegram'
-  group_wait: 30s
-  group_interval: 30s
-  repeat_interval: 15m
+# route:
+#   group_by: ['alertname', 'instance']
+#   receiver: 'telegram'
+#   group_wait: 30s
+#   group_interval: 30s
+#   repeat_interval: 15m
 
-receivers:
-  - name: 'telegram'
-    telegram_configs:
-      - bot_token: '5574167302:AAHLvCOUjbWZXu3nvr70yc0bEWkDtH1GQAQ'
-        chat_id: -4834692149
-        parse_mode: 'HTML'
-        message: |
-          🟠 <b>Status:</b> <code>{{ .Status }}</code>
-          🖥️ <b>Instance:</b> <code>{{ .CommonLabels.instance }}</code>
+# receivers:
+#   - name: 'telegram'
+#     telegram_configs:
+#       - bot_token: '5574167302:AAHLvCOUjbWZXu3nvr70yc0bEWkDtH1GQAQ'
+#         chat_id: -4834692149
+#         parse_mode: 'HTML'
+#         message: |
+#           🟠 <b>Status:</b> <code>{{ .Status }}</code>
+#           🖥️ <b>Instance:</b> <code>{{ .CommonLabels.instance }}</code>
 
-          📝 <b>Description:</b>
-          {{ .CommonAnnotations.description }}
+#           📝 <b>Description:</b>
+#           {{ .CommonAnnotations.description }}
