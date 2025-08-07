@@ -21,15 +21,15 @@ services:
       - '--web.enable-lifecycle'
     restart: unless-stopped
 
-  # alertmanager:
-  #   image: prom/alertmanager:v0.28.1
-  #   volumes:
-  #     - ./alertmanager/alertmanager.yml:/etc/alertmanager/alertmanager.yml
-  #   ports:
-  #     - "9093:9093"
-  #   command:
-  #     - '--config.file=/etc/alertmanager/alertmanager.yml'
-  #   restart: unless-stopped
+  alertmanager:
+    image: prom/alertmanager:v0.28.1
+    volumes:
+      - ./alertmanager/alertmanager.yml:/etc/alertmanager/alertmanager.yml
+    ports:
+      - "9093:9093"
+    command:
+      - '--config.file=/etc/alertmanager/alertmanager.yml'
+    restart: unless-stopped
 
   node_exporter:
     image: prom/node-exporter:v1.9.1
@@ -68,3 +68,13 @@ services:
       - /var/lib/docker/:/var/lib/docker:ro
     restart: unless-stopped
 
+  tele-webhook:
+    build:
+      context: .
+    ports:
+      - "3005:3005"
+    volumes:
+      - .:/app
+    environment:
+      - TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN}
+      - TELEGRAM_CHAT_ID=${TELEGRAM_CHAT_ID}
